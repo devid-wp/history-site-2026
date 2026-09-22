@@ -1,0 +1,1051 @@
+:root {
+  --bg: #050505;
+  --text: #e8e8e8;
+  --muted: #888888;
+  --accent: #c89b5a;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* ---------- оболонка ---------- */
+
+.deck {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y proximity;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(200, 155, 90, 0.07),
+    transparent 55%
+  );
+  scrollbar-width: none;
+}
+
+.deck::-webkit-scrollbar {
+  display: none;
+}
+
+.deck.free {
+  scroll-snap-type: none;
+}
+
+.section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px 32px;
+}
+
+.inner {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* поява вмісту */
+.section .inner > *,
+.section .hero-text > * {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.section.in .inner > *,
+.section.in .hero-text > * {
+  opacity: 1;
+  transform: none;
+}
+
+.section.in .inner > *:nth-child(1),
+.section.in .hero-text > *:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.section.in .inner > *:nth-child(2),
+.section.in .hero-text > *:nth-child(2) {
+  transition-delay: 0.15s;
+}
+.section.in .inner > *:nth-child(3),
+.section.in .hero-text > *:nth-child(3) {
+  transition-delay: 0.25s;
+}
+.section.in .inner > *:nth-child(4),
+.section.in .hero-text > *:nth-child(4) {
+  transition-delay: 0.35s;
+}
+.section.in .inner > *:nth-child(5),
+.section.in .hero-text > *:nth-child(5) {
+  transition-delay: 0.45s;
+}
+.section.in .inner > *:nth-child(6),
+.section.in .hero-text > *:nth-child(6) {
+  transition-delay: 0.55s;
+}
+
+/* ---------- типографіка ---------- */
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(30px, 5.4vw, 56px);
+  margin-bottom: 28px;
+}
+
+.huge {
+  font-size: clamp(88px, 20vw, 210px);
+  font-weight: 200;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: var(--accent);
+  text-shadow: 0 0 70px rgba(200, 155, 90, 0.22);
+}
+
+.huge.small {
+  font-size: clamp(72px, 13vw, 150px);
+  margin-bottom: 26px;
+}
+
+.word {
+  font-family: var(--mono);
+  font-size: clamp(16px, 3vw, 26px);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  margin: 22px 0 0;
+}
+
+.quote {
+  color: var(--muted);
+  font-weight: 300;
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.5;
+  max-width: 34ch;
+  margin: 26px 0 0;
+}
+
+.lead {
+  color: #bdbdbd;
+  font-weight: 300;
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.65;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.final {
+  font-size: clamp(30px, 5.6vw, 60px);
+  line-height: 1.14;
+  margin-bottom: 24px;
+}
+
+/* ---------- кнопка ---------- */
+
+.btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid rgba(200, 155, 90, 0.45);
+  border-radius: 999px;
+  padding: 15px 32px;
+  margin-top: 42px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #050505;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- секція 2 ---------- */
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 52px;
+  margin: 6px 0 36px;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 22px;
+  border: 1px solid #1c1c1c;
+  border-radius: 12px;
+  background: #0b0b0b;
+}
+
+.step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  right: -36px;
+  transform: translateY(-50%);
+  color: var(--accent);
+  opacity: 0.65;
+  font-size: 15px;
+}
+
+.step-name {
+  font-size: 16px;
+}
+
+.step-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ---------- секція 4: схема ---------- */
+
+.chain-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chain {
+  --row: 46px;
+  --gap: 8px;
+  --n: 6;
+  --h: calc(var(--n) * var(--row) + (var(--n) - 1) * var(--gap));
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+}
+
+.chain ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.chain li {
+  position: relative;
+  height: var(--row);
+  display: flex;
+  align-items: center;
+  padding-left: 46px;
+}
+
+.chain .label {
+  font-family: var(--mono);
+  font-size: clamp(12px, 3.2vw, 15px);
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.chain .dot {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  transform: translate(-50%, -50%);
+}
+
+.rail {
+  position: absolute;
+  left: 8px;
+  top: calc(var(--row) / 2);
+  width: 2px;
+  height: calc(var(--h) - var(--row));
+  background: #1a1a1a;
+  border-radius: 2px;
+}
+
+.rail-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(200, 155, 90, 0.25), var(--accent));
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.chain .signal {
+  position: absolute;
+  left: 9px;
+  top: calc(var(--row) / 2);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(200, 155, 90, 0.22),
+    0 0 22px 4px rgba(200, 155, 90, 0.7);
+  animation: travel-down 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.chain.go .rail-fill {
+  animation: rail-down 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.chain.go .dot {
+  animation: dot-on 0.5s ease forwards;
+  animation-delay: calc(var(--i) * 0.42s);
+}
+
+.chain.go .label {
+  animation: text-on 0.5s ease forwards;
+  animation-delay: calc(var(--i) * 0.42s);
+}
+
+@keyframes travel-down {
+  from {
+    top: calc(var(--row) / 2);
+  }
+  to {
+    top: calc(var(--h) - var(--row) / 2);
+  }
+}
+
+@keyframes rail-down {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes dot-on {
+  from {
+    background: #2a2a2a;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    background: var(--accent);
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 5px rgba(200, 155, 90, 0.12),
+      0 0 20px rgba(200, 155, 90, 0.55);
+  }
+}
+
+@keyframes text-on {
+  to {
+    color: var(--text);
+  }
+}
+
+/* ---------- секція 5: timeline ---------- */
+
+.years {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 34px 0 24px;
+}
+
+.year {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid #1e1e1e;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.28s, border-color 0.28s, background 0.28s;
+}
+
+.year:hover {
+  color: var(--text);
+  border-color: #333;
+}
+
+.year.on {
+  color: var(--accent);
+  border-color: rgba(200, 155, 90, 0.5);
+  background: rgba(200, 155, 90, 0.07);
+}
+
+.year-card {
+  display: grid;
+  grid-template-columns: 1fr 210px;
+  gap: clamp(22px, 3vw, 40px);
+  align-items: center;
+  border-left: 1px solid rgba(200, 155, 90, 0.35);
+  padding-left: 22px;
+  animation: card-in 0.5s ease both;
+}
+
+.year-card .figure figcaption {
+  font-size: 10px;
+}
+
+.year-copy {
+  max-width: 60ch;
+}
+
+.year-title {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.year-text {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- секція 6: дзвінок ---------- */
+
+.call {
+  margin-top: 44px;
+}
+
+.call-line {
+  display: flex;
+  align-items: center;
+}
+
+.call-side {
+  font-family: var(--mono);
+  font-size: clamp(12px, 2.6vw, 15px);
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+}
+
+.wire {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  margin: 0 clamp(12px, 4vw, 30px);
+  background: #2e2e2e;
+}
+
+.wire-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.wire-label {
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--accent);
+  opacity: 0;
+}
+
+.wire .signal {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(200, 155, 90, 0.2),
+    0 0 20px 3px rgba(200, 155, 90, 0.7);
+  animation: travel-right 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.call-line.go .wire-fill {
+  animation: wire-x 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.call-line.go .wire-label {
+  animation: label-in 0.6s ease 1s forwards;
+}
+
+@keyframes travel-right {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes wire-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes label-in {
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* ---------- навігація ---------- */
+
+.brand {
+  position: fixed;
+  top: 24px;
+  left: 28px;
+  z-index: 20;
+  display: flex;
+  gap: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.brand-count {
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+.nav {
+  position: fixed;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.nav button {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: 0;
+  padding: 2px 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.nav button::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s, margin-right 0.3s;
+}
+
+.nav button:hover {
+  color: var(--muted);
+}
+
+.nav button.on {
+  color: var(--accent);
+}
+
+.nav button.on::before {
+  width: 16px;
+  margin-right: 8px;
+}
+
+.nav button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- зображення ---------- */
+
+.figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  border-radius: 3px;
+  background: #0b0b0b;
+  object-fit: cover;
+  filter: grayscale(0.6) contrast(1.06) brightness(0.84) saturate(0.75);
+  transition: filter 0.8s ease;
+}
+
+.figure:hover img {
+  filter: grayscale(0.05) contrast(1.02) brightness(1) saturate(1);
+}
+
+.figure figcaption {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  max-width: 48ch;
+}
+
+.figure.portrait img {
+  aspect-ratio: 3 / 4;
+}
+.figure.tall img {
+  aspect-ratio: 4 / 5;
+}
+.figure.landscape img {
+  aspect-ratio: 4 / 3;
+}
+.figure.wide img {
+  aspect-ratio: 16 / 9;
+}
+.figure.square img {
+  aspect-ratio: 1 / 1;
+}
+
+.figure.patent {
+  max-width: 340px;
+  justify-self: center;
+}
+
+.figure.patent img {
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #0c0c0c;
+  filter: grayscale(1) contrast(1.08) brightness(0.86);
+}
+
+/* ---------- розкладки ---------- */
+
+.section.intro .inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(26px, 4vw, 64px);
+  align-items: center;
+  max-width: 1120px;
+}
+
+.hero-text .quote {
+  margin-bottom: 0;
+}
+
+.media {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(26px, 4vw, 56px);
+  align-items: center;
+  margin-top: 38px;
+}
+
+.media.flip {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+.sub {
+  font-size: clamp(17px, 2vw, 21px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+
+.lead strong {
+  font-weight: 400;
+  color: var(--text);
+}
+
+.note {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(200, 155, 90, 0.38);
+  color: #b3b3b3;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.66;
+  max-width: 62ch;
+}
+
+/* ---------- факти (секція 2) ---------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  margin-top: 36px;
+}
+
+.fact .k {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.fact h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.fact p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+/* ---------- хронологія подій ---------- */
+
+.milestones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.milestones li {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 20px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid #171717;
+}
+
+.milestones li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.milestones .date {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.milestones h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.milestones p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 300;
+  font-size: 14.5px;
+  line-height: 1.62;
+  max-width: 62ch;
+}
+
+/* ---------- пояснення сигналу (секція 4) ---------- */
+
+.explain {
+  margin-top: 52px;
+}
+
+.explain ol {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: 24px clamp(24px, 4vw, 56px);
+}
+
+.explain li {
+  position: relative;
+  padding-left: 42px;
+  counter-increment: step;
+}
+
+.explain li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.explain b {
+  display: block;
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.explain p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+.explain .note {
+  margin-top: 30px;
+}
+
+/* ---------- вплив (секція 8) ---------- */
+
+.impact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px clamp(24px, 4vw, 52px);
+  margin-top: 36px;
+}
+
+.impact h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.impact p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 300;
+  font-size: 14.5px;
+  line-height: 1.62;
+  max-width: 52ch;
+}
+
+/* ---------- дрібний текст ---------- */
+
+.credits {
+  margin: 40px 0 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.75;
+  letter-spacing: 0.05em;
+  color: #5c5c5c;
+  max-width: 64ch;
+}
+
+/* ---------- адаптивність ---------- */
+
+@media (max-width: 760px) {
+  .section {
+    padding: 96px 22px 120px;
+    align-items: center;
+  }
+
+  .huge {
+    letter-spacing: -0.04em;
+  }
+
+  .steps {
+    gap: 46px;
+  }
+
+  .step:not(:last-child)::after {
+    content: '↓';
+    top: auto;
+    right: auto;
+    left: 24px;
+    bottom: -36px;
+    transform: none;
+  }
+
+  .chain {
+    --row: 42px;
+    --gap: 6px;
+  }
+
+  .section.intro .inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    max-width: 900px;
+  }
+
+  .media,
+  .media.flip {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 30px;
+  }
+
+  .media.photo-first .figure {
+    order: -1;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .explain ol {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    gap: 22px;
+  }
+
+  .explain {
+    margin-top: 38px;
+  }
+
+  .impact {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .milestones li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .figure.portrait img {
+    aspect-ratio: 4 / 5;
+  }
+
+  .figure.tall img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .figure.patent {
+    max-width: 100%;
+  }
+
+  .year-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .year-card .figure {
+    max-width: 320px;
+  }
+
+  .nav {
+    top: auto;
+    right: auto;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .nav button {
+    font-size: 10px;
+    padding: 6px 3px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav button::before {
+    display: none;
+  }
+
+  .nav button.on {
+    border-bottom-color: var(--accent);
+  }
+}
+
+@media (max-width: 420px) {
+  .word {
+    letter-spacing: 0.3em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck {
+    scroll-behavior: auto;
+  }
+}
